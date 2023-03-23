@@ -1,1 +1,6 @@
 build*/
+SnakeGame/.qtc*
+SnakeGame/debug*
+SnakeGame/release*
+SnakeGame/MakeFile*
+SnakeGame/.qmake.stash

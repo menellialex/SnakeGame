@@ -10,13 +10,21 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    snake.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    snake.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+
+RESOURCES += \
+    nickhead.jpg \
+    kitkat.jpg \
+    rainbow.jpg
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
