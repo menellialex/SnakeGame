@@ -13,6 +13,7 @@ class Snake : public QWidget
 public:
     Snake(QWidget *parent = nullptr);
     ~Snake();
+    bool twoplayer;
 
 protected:
     void keyPressEvent(QKeyEvent *e);
@@ -35,20 +36,24 @@ private:
     int timerDelay;
 
     //amount of body segments
-    int segments;
+    int nicksegments;
+    int mattsegments;
 
     //QImage files for head, segments and apple
-    QImage head;
+    QImage nickhead;
     QImage body;
     QImage apple;
+    QImage matthead;
 
     //apple's x and y
     int apple_x;
     int apple_y;
 
     //x and y coords
-    int x[DOTS_COUNT];
-    int y[DOTS_COUNT];
+    int nickx[DOTS_COUNT];
+    int nicky[DOTS_COUNT];
+    int mattx[DOTS_COUNT];
+    int matty[DOTS_COUNT];
 
     //direction enum and
     enum direction_enum
@@ -57,14 +62,14 @@ private:
         RIGHT_DIRECTION,
         UP_DIRECTION,
         DOWN_DIRECTION
-    } direction = UP_DIRECTION;
+    } nickdirection = UP_DIRECTION,
+    mattdirection = DOWN_DIRECTION;
 
     bool inGame = false;
 
     //functions
     void move();
     void doDrawing();
-    void loadImages();
     void setApple();
     void hitApple();
     void checkCollisions();

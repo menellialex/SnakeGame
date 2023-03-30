@@ -15,23 +15,37 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
     setFixedSize(BOARD_W, BOARD_H);
 
     //load the images
-    head.load("nickhead.jpg");
+    nickhead.load("nickhead.jpg");
     body.load("rainbow.jpg");
-    apple.load("kitkat.jpg");
+    apple.load("khadka-mahesh.jpg");
+    matthead.load("matthead.jpg");
 
     //scale the images
-    head = head.scaled(20,20);
+    nickhead = nickhead.scaled(20,20);
     body = body.scaled(20,20);
     apple = apple.scaled(20,20);
+    matthead = matthead.scaled(20,20);
 
-    //starting segments
-    segments = 3;
+    //starting nicksegments
+    nicksegments = 3;
+
+    //is it twoplayer?
+    twoplayer = true;
 
     //starting x and y coords
-    for (int n = 0; n < segments; n++)
+    for (int n = 0; n < nicksegments; n++)
     {
-        x[n] = 100 - n * 10;
-        y[n] = 200;
+        nickx[n] = 100 - n * 10;
+        nicky[n] = 200;
+    }
+    if (twoplayer == true)
+    {
+        mattsegments = 3;
+        for (int n = 0; n < mattsegments; n++)
+        {
+            mattx[n] = 500 - n * 10;
+            matty[n] = 200;
+        }
     }
 
     //set the apple
@@ -61,18 +75,32 @@ void Snake::doDrawing()
     {
         qp.drawImage(apple_x,apple_y,apple);
 
-        for (int n = 0; n < segments; n++)
+        for (int n = 0; n < nicksegments; n++)
         {
             if (n==0)
             {
-                qp.drawImage(x[n],y[n],head);
+                qp.drawImage(nickx[n],nicky[n],nickhead);
             }
             else
             {
-                qp.drawImage(x[n],y[n],body);
+                qp.drawImage(nickx[n],nicky[n],body);
             }
         }
-        printf("drawing\n");
+
+        if (twoplayer == true)
+        {
+            for (int n = 0; n < mattsegments; n++)
+            {
+                if (n==0)
+                {
+                    qp.drawImage(mattx[n],matty[n],matthead);
+                }
+                else
+                {
+                    qp.drawImage(mattx[n],matty[n],body);
+                }
+            }
+        }
     }
     else if(!inGame)
     {
@@ -92,35 +120,54 @@ void Snake::doDrawing()
 
 }
 
-void Snake::loadImages()
-{
-
-    printf("Images load function\n");
-}
-
 void Snake::move() {
 
-    for (int z = segments; z > 0; z--) {
-        x[z] = x[(z - 1)];
-        y[z] = y[(z - 1)];
+    //move the segments
+    for (int z = nicksegments; z > 0; z--) {
+        nickx[z] = nickx[(z - 1)];
+        nicky[z] = nicky[(z - 1)];
     }
 
-    switch(direction)
+    //find directions of the head.
+    switch(nickdirection)
     {
         case LEFT_DIRECTION:
-            x[0] -= DOT_SIZE;
+            nickx[0] -= DOT_SIZE;
             break;
         case RIGHT_DIRECTION:
-            x[0] += DOT_SIZE;
+            nickx[0] += DOT_SIZE;
             break;
         case UP_DIRECTION:
-            y[0] -= DOT_SIZE;
+            nicky[0] -= DOT_SIZE;
             break;
         case DOWN_DIRECTION:
-            y[0] += DOT_SIZE;
+            nicky[0] += DOT_SIZE;
             break;
     }
-    printf("move\n");
+
+    if (twoplayer == true)
+    {
+        for (int z = mattsegments; z > 0; z--) {
+            mattx[z] = mattx[(z - 1)];
+            matty[z] = matty[(z - 1)];
+        }
+
+        switch(mattdirection)
+        {
+            case LEFT_DIRECTION:
+                mattx[0] -= DOT_SIZE;
+                break;
+            case RIGHT_DIRECTION:
+                mattx[0] += DOT_SIZE;
+                break;
+            case UP_DIRECTION:
+                matty[0] -= DOT_SIZE;
+                break;
+            case DOWN_DIRECTION:
+                matty[0] += DOT_SIZE;
+                break;
+        }
+    }
 
 }
 
@@ -143,23 +190,36 @@ void Snake::keyPressEvent(QKeyEvent *e)
 {
     int key = e->key();
 
-    std::cout << key;
-    printf(" <- key pressed\n");
-
-    if ((key == Qt::Key_Left) && (direction != RIGHT_DIRECTION)) {
-        direction = LEFT_DIRECTION;
+    if ((key == Qt::Key_Left) && (nickdirection != RIGHT_DIRECTION)) {
+        nickdirection = LEFT_DIRECTION;
     }
 
-    if ((key == Qt::Key_Right) && (direction != LEFT_DIRECTION)) {
-        direction = RIGHT_DIRECTION;
+    if ((key == Qt::Key_Right) && (nickdirection != LEFT_DIRECTION)) {
+        nickdirection = RIGHT_DIRECTION;
     }
 
-    if ((key == Qt::Key_Up) && (direction != DOWN_DIRECTION)) {
-        direction = UP_DIRECTION;
+    if ((key == Qt::Key_Up) && (nickdirection != DOWN_DIRECTION)) {
+        nickdirection = UP_DIRECTION;
     }
 
-    if ((key == Qt::Key_Down) && (direction != UP_DIRECTION)) {
-        direction = DOWN_DIRECTION;
+    if ((key == Qt::Key_Down) && (nickdirection != UP_DIRECTION)) {
+        nickdirection = DOWN_DIRECTION;
+    }
+
+    if ((key == Qt::Key_A) && (mattdirection != RIGHT_DIRECTION)) {
+        mattdirection = LEFT_DIRECTION;
+    }
+
+    if ((key == Qt::Key_D) && (mattdirection != LEFT_DIRECTION)) {
+        mattdirection = RIGHT_DIRECTION;
+    }
+
+    if ((key == Qt::Key_W) && (mattdirection != DOWN_DIRECTION)) {
+        mattdirection = UP_DIRECTION;
+    }
+
+    if ((key == Qt::Key_S) && (mattdirection != UP_DIRECTION)) {
+        mattdirection = DOWN_DIRECTION;
     }
 
     QWidget::keyPressEvent(e);
@@ -179,35 +239,47 @@ void Snake::setApple()
 
 void Snake::hitApple()
 {
-    if ((x[0] == apple_x) && (y[0] == apple_y))
+    if ((nickx[0] == apple_x) && (nicky[0] == apple_y))
     {
-        segments++;
+        nicksegments++;
         setApple();
+    }
+    if (twoplayer == true)
+    {
+        if ((mattx[0] == apple_x) && (matty[0] == apple_y))
+        {
+            mattsegments++;
+            setApple();
+        }
     }
 }
 
 void Snake::checkCollisions()
 {
-    for (int z = segments; z > 0; z--) {
-
-        if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+    //check nick snake dying
+    for (int z = nicksegments; z > 0; z--)
+    {
+        if (((z > 4) && ((nickx[0] == nickx[z])) && (nicky[0] == nicky[z])) || ((mattx[0] == nickx[z]) && (matty[0] == nicky[z])))
+        {
             inGame = false;
         }
     }
 
-    if (y[0] >= BOARD_H) {
+    if ((nicky[0] >= BOARD_H) || (nicky[0] < 0) || (nickx[0] >= BOARD_W) || (nickx[0] < 0)) {
         inGame = false;
     }
 
-    if (y[0] < 0) {
-        inGame = false;
+    //check matt snake dying
+    for (int z = mattsegments; z > 0; z--)
+    {
+        if ((z > 4) && (((mattx[0] == mattx[z]) && (matty[0] == matty[z])) || ((nickx[0] == mattx[z]) && (nicky[0] == matty[z]))))
+        {
+            inGame = false;
+        }
     }
 
-    if (x[0] >= BOARD_W) {
-        inGame = false;
-    }
-
-    if (x[0] < 0) {
+    if (((matty[0] < 0) || (matty[0] >= BOARD_H)) || ((mattx[0] < 0) || (mattx[0] >= BOARD_W)))
+    {
         inGame = false;
     }
 

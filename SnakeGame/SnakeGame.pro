@@ -23,7 +23,9 @@ FORMS += \
 RESOURCES += \
     nickhead.jpg \
     kitkat.jpg \
-    rainbow.jpg
+    rainbow.jpg \
+    matthead.jpg \
+    khadka-mahesh.jpg
 
 
 # Default rules for deployment.
