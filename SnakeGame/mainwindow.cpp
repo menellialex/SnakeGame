@@ -1,7 +1,11 @@
 #include "mainwindow.h"
-#include "optionsdialog.h"
-#include "ui_gamewindow.h"
+#include "optionswindow.h"
+#include "gamewindow.h"
 #include "ui_mainwindow.h"
+
+Difficulty *difficultyLocation;
+Players *playersLocation;
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,16 +22,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
-    Ui::GameWindow gameWindow;
-    gameWindow.setupUi(this);
-
+    (new GameWindow(this))->show();
 }
 
 
 void MainWindow::on_settingsButton_clicked()
 {
-    OptionsDialog dialogWindow;
-    dialogWindow.exec();
+
 }
 
 void MainWindow::on_exitButton_clicked()
@@ -41,6 +42,8 @@ void MainWindow::on_pushButton_4_clicked()
 }
 
 
-
-
+void MainWindow::on_optionsButton_clicked()
+{
+    (new OptionsWindow(this, difficultyLocation, playersLocation))->show();
+}
 

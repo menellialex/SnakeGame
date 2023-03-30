@@ -24,6 +24,8 @@ private slots:
 
     void on_settingsButton_clicked();
 
+    void on_optionsButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -12,17 +12,18 @@ SOURCES += \
     gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    optionsdialog.cpp
+    optionswindow.cpp
 
 HEADERS += \
     gamewindow.h \
     mainwindow.h \
-    optionsdialog.h
+    optionswindow.h \
+    snakeEnums.h
 
 FORMS += \
     gamewindow.ui \
     mainwindow.ui \
-    optionsdialog.ui
+    optionswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
