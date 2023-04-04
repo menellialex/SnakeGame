@@ -1,7 +1,8 @@
 #include "snake.h"
 #include <iostream>
-#include <QTime>
+#include <QBackingStore>
 #include <cstdlib>
+#include "mainwindow.h"
 
 Snake::Snake(QWidget *parent) : QWidget(parent)
 {
@@ -35,7 +36,7 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
     //starting x and y coords
     for (int n = 0; n < nicksegments; n++)
     {
-        nickx[n] = 100 - n * 10;
+        nickx[n] = 500 - n * 10;
         nicky[n] = 200;
     }
     if (twoplayer == true)
@@ -43,7 +44,7 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
         mattsegments = 3;
         for (int n = 0; n < mattsegments; n++)
         {
-            mattx[n] = 500 - n * 10;
+            mattx[n] = 100 - n * 10;
             matty[n] = 200;
         }
     }
@@ -64,11 +65,6 @@ void Snake::paintEvent(QPaintEvent *e)
 {
     Q_UNUSED(e);
 
-    doDrawing();
-}
-
-void Snake::doDrawing()
-{
     QPainter qp(this);
 
     if (inGame)
@@ -116,14 +112,19 @@ void Snake::doDrawing()
 
         qp.translate(QPoint(w/2, h/2));
         qp.drawText(-textWidth/2, 0, message);
-    }
 
+        //close
+        hide();
+        MainWindow *win = new MainWindow;
+        win->show();
+    }
 }
 
 void Snake::move() {
 
     //move the segments
-    for (int z = nicksegments; z > 0; z--) {
+    for (int z = nicksegments; z > 0; z--)
+    {
         nickx[z] = nickx[(z - 1)];
         nicky[z] = nicky[(z - 1)];
     }
@@ -287,3 +288,4 @@ void Snake::checkCollisions()
         killTimer(timerId);
     }
 }
+

@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QPainter>
 #include <QTimer>
+#include <QTime>
 
 class Snake : public QWidget
 {
@@ -69,7 +70,6 @@ private:
 
     //functions
     void move();
-    void doDrawing();
     void setApple();
     void hitApple();
     void checkCollisions();
