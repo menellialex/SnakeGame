@@ -12,18 +12,27 @@ SOURCES += \
     gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    optionswindow.cpp
+    optionswindow.cpp \
+    snake.cpp
 
 HEADERS += \
     gamewindow.h \
     mainwindow.h \
     optionswindow.h \
+    snake.h \
     snakeEnums.h
 
 FORMS += \
     gamewindow.ui \
     mainwindow.ui \
     optionswindow.ui
+
+RESOURCES += \
+    nickhead.jpg \
+    kitkat.jpg \
+    rainbow.jpg \
+    matthead.jpg \
+    khadka-mahesh.jpg
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
