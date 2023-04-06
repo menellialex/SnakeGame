@@ -10,6 +10,9 @@ OptionsWindow::OptionsWindow(QWidget *parent, Difficulty *diff, Players *pla) :
     this->diff = diff;
     this->pla = pla;
 
+    //Sets the default radio button states based on what settings are remain in the proper memory locations
+
+    //For difficulty
     switch (*this->diff)
     {
         case Slow:
@@ -26,6 +29,7 @@ OptionsWindow::OptionsWindow(QWidget *parent, Difficulty *diff, Players *pla) :
             break;
     }
 
+    //For number of players
     switch (*this->pla)
     {
         case SinglePlayer:
@@ -44,12 +48,6 @@ OptionsWindow::~OptionsWindow()
 {
     delete ui;
 }
-
-void OptionsWindow::on_pushButton_clicked()
-{
-    delete ui;
-}
-
 
 void OptionsWindow::on_saveButton_clicked()
 {
@@ -88,9 +86,7 @@ void OptionsWindow::on_saveButton_clicked()
     this->close();
 }
 
-
 void OptionsWindow::on_exitButton_clicked()
 {
     this->close();
 }
-
