@@ -132,18 +132,18 @@ void Snake::move() {
     //find directions of the head.
     switch(nickdirection)
     {
-    case LEFT_DIRECTION:
-        nickx[0] -= DOT_SIZE;
-        break;
-    case RIGHT_DIRECTION:
-        nickx[0] += DOT_SIZE;
-        break;
-    case UP_DIRECTION:
-        nicky[0] -= DOT_SIZE;
-        break;
-    case DOWN_DIRECTION:
-        nicky[0] += DOT_SIZE;
-        break;
+        case LEFT_DIRECTION:
+            nickx[0] -= DOT_SIZE;
+            break;
+        case RIGHT_DIRECTION:
+            nickx[0] += DOT_SIZE;
+            break;
+        case UP_DIRECTION:
+            nicky[0] -= DOT_SIZE;
+            break;
+        case DOWN_DIRECTION:
+            nicky[0] += DOT_SIZE;
+            break;
     }
 
     if (twoplayer == true)
@@ -155,18 +155,18 @@ void Snake::move() {
 
         switch(mattdirection)
         {
-        case LEFT_DIRECTION:
-            mattx[0] -= DOT_SIZE;
-            break;
-        case RIGHT_DIRECTION:
-            mattx[0] += DOT_SIZE;
-            break;
-        case UP_DIRECTION:
-            matty[0] -= DOT_SIZE;
-            break;
-        case DOWN_DIRECTION:
-            matty[0] += DOT_SIZE;
-            break;
+            case LEFT_DIRECTION:
+                mattx[0] -= DOT_SIZE;
+                break;
+            case RIGHT_DIRECTION:
+                mattx[0] += DOT_SIZE;
+                break;
+            case UP_DIRECTION:
+                matty[0] -= DOT_SIZE;
+                break;
+            case DOWN_DIRECTION:
+                matty[0] += DOT_SIZE;
+                break;
         }
     }
 

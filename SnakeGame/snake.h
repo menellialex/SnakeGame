@@ -64,7 +64,7 @@ private:
         UP_DIRECTION,
         DOWN_DIRECTION
     } nickdirection = UP_DIRECTION,
-        mattdirection = DOWN_DIRECTION;
+    mattdirection = DOWN_DIRECTION;
 
     bool inGame = false;
 
