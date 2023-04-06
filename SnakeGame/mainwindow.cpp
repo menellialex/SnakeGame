@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "optionswindow.h"
 #include "gamewindow.h"
+#include "snake.h"
 #include "ui_mainwindow.h"
 
 Difficulty *difficultyLocation;
@@ -22,7 +23,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
-    (new GameWindow(this))->show();
+    //(new GameWindow(this))->show();
+    Snake window;
+    window.setWindowTitle("Shlippery Shlithering Shneaky Shnake");
+    window.show();
 }
 
 
