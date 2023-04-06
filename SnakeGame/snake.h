@@ -22,6 +22,9 @@ protected:
     void paintEvent(QPaintEvent *e);
 
 private:
+    //countdown for gameover
+    bool close;
+
     //board height and width
     static const int BOARD_H = 600;
     static const int BOARD_W = 600;
@@ -35,6 +38,7 @@ private:
 
     int timerId;
     int timerDelay;
+    QTimer *closeTimer = new QTimer;
 
     //amount of body segments
     int nicksegments;

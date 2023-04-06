@@ -9,25 +9,32 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
 {
     //constructer
     inGame = true;
+    close = false;
 
     //read config files contents
     std::fstream file;
     file.open("options.config", std::ios::in);
-    int diff = file.get();
-    int pla = file.get();
+    char diff = file.get();
+    char pla = file.get();
+    int arr[2] = {(diff-48), (pla-48)};
+
+    std::cout << arr[0] << " " << arr[1] << std::endl;
 
     //will be changed by the difficulty setting in main screen
-    if (diff == 1)
-    {
-        timerDelay = 70;
-    }
-    else if (diff == 2)
+    if (arr[0] == 1)
     {
         timerDelay = 150;
+        printf("easy\n");
+    }
+    else if (arr[0] == 2)
+    {
+        timerDelay = 50;
+        printf("hard\n");
     }
     else
     {
         timerDelay = 100;
+        printf("medium\n");
     }
 
     //set the size of the window
@@ -50,13 +57,15 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
 
 
     //is it twoplayer?
-    if (pla == 2)
+    if (arr[1] == 2)
     {
         twoplayer = true;
+        printf("multi\n");
     }
     else
     {
         twoplayer = false;
+        printf("single\n");
     }
 
     //starting x and y coords
@@ -64,7 +73,6 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
     {
         nickx[n] = 500 - n * 20;
         nicky[n] = 200;
-        std::cout << nickx[n] << " " << nicky[n] << std::endl;
     }
     if (twoplayer == true)
     {
@@ -140,11 +148,9 @@ void Snake::paintEvent(QPaintEvent *e)
         qp.translate(QPoint(w/2, h/2));
         qp.drawText(-textWidth/2, 0, message);
 
-        //close
-        printf("did this work?");
-        hide();
-        MainWindow *win = new MainWindow;
-        win->show();
+        //wait to close
+        timerId = startTimer(3000);
+        close = true;
     }
 }
 
@@ -210,6 +216,13 @@ void Snake::timerEvent(QTimerEvent *e)
         hitApple();
         checkCollisions();
         move();
+    }
+    else if (close)
+    {
+        MainWindow *win = new MainWindow;
+        win->show();
+        hide();
+        close = false;
     }
 
     update();
@@ -301,19 +314,22 @@ void Snake::checkCollisions()
     }
 
     //check matt snake dying
-    for (int z = mattsegments; z > 0; z--)
+    if (twoplayer == true)
     {
-        if ((z > 4) && (((mattx[0] == mattx[z]) && (matty[0] == matty[z])) || ((nickx[0] == mattx[z]) && (nicky[0] == matty[z]))))
+        for (int z = mattsegments; z > 0; z--)
+        {
+            if ((z > 4) && (((mattx[0] == mattx[z]) && (matty[0] == matty[z])) || ((nickx[0] == mattx[z]) && (nicky[0] == matty[z]))))
+            {
+                inGame = false;
+                printf("matt hit");
+            }
+        }
+
+        if (((matty[0] < 0) || (matty[0] >= BOARD_H)) || ((mattx[0] < 0) || (mattx[0] >= BOARD_W)))
         {
             inGame = false;
-            printf("matt hit");
+            printf("matt hit wall");
         }
-    }
-
-    if (((matty[0] < 0) || (matty[0] >= BOARD_H)) || ((mattx[0] < 0) || (mattx[0] >= BOARD_W)))
-    {
-        inGame = false;
-        printf("matt hit wall");
     }
 
     if(!inGame) {

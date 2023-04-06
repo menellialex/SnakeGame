@@ -7,11 +7,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //boots straight into the snake window
-    Snake *window = new Snake;
-    window->setWindowTitle("Shlippery Shlithering Shneaky Shnake");
-    window->show();
+    //Snake *window = new Snake;
+    //window->setWindowTitle("Shlippery Shlithering Shneaky Shnake");
+    //window->show();
 
-    //MainWindow w;
-    //w.show();
+    MainWindow w;
+    w.show();
     return a.exec();
 }
