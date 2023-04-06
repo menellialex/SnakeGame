@@ -1,6 +1,7 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+#include "snakeEnums.h"
 #include <QWidget>
 #include <QKeyEvent>
 #include <QPainter>
@@ -12,7 +13,7 @@ class Snake : public QWidget
     Q_OBJECT
 
 public:
-    Snake(QWidget *parent = nullptr);
+    Snake(QWidget *parent = nullptr, Difficulty *diff = nullptr, Players *pla = nullptr);
     ~Snake();
     bool twoplayer;
 

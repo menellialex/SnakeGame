@@ -1,18 +1,19 @@
 #include "mainwindow.h"
 #include "optionswindow.h"
-#include "gamewindow.h"
 #include "snake.h"
 #include "ui_mainwindow.h"
-
-Difficulty *difficultyLocation;
-Players *playersLocation;
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    Difficulty diff = Slow;
+    Players pla = SinglePlayer;
+
+    this->difficultyLocation = &diff;
+    this->playersLocation = &pla;
 }
 
 MainWindow::~MainWindow()
@@ -24,7 +25,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_startButton_clicked()
 {
     //(new GameWindow(this))->show();
-    Snake window;
+    Snake window(this, this->difficultyLocation, this->playersLocation);
     window.setWindowTitle("Shlippery Shlithering Shneaky Shnake");
     window.show();
 }
@@ -48,6 +49,6 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_optionsButton_clicked()
 {
-    (new OptionsWindow(this, difficultyLocation, playersLocation))->show();
+    (new OptionsWindow(this, this->difficultyLocation, this->playersLocation))->show();
 }
 
