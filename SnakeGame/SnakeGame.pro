@@ -9,16 +9,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
+
+    optionswindow.cpp \
     snake.cpp
 
 HEADERS += \
+    gamewindow.h \
     mainwindow.h \
-    snake.h
+    optionswindow.h \
+    snake.h \
+    snakeEnums.h
 
 FORMS += \
+    gamewindow.ui \
     mainwindow.ui \
+    optionswindow.ui
 
 RESOURCES += \
     nickhead.jpg \
@@ -26,7 +34,6 @@ RESOURCES += \
     rainbow.jpg \
     matthead.jpg \
     khadka-mahesh.jpg
-
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

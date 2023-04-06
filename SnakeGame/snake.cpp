@@ -288,4 +288,3 @@ void Snake::checkCollisions()
         killTimer(timerId);
     }
 }
-
