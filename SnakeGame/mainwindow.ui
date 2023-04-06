@@ -113,27 +113,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="optionsButton">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>320</y>
-      <width>93</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Titillium Web</family>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string>Options</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="exitButton">
     <property name="geometry">
      <rect>

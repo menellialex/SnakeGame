@@ -32,7 +32,8 @@ RESOURCES += \
     kitkat.jpg \
     rainbow.jpg \
     matthead.jpg \
-    khadka-mahesh.jpg
+    khadka-mahesh.jpg \
+    options.config
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

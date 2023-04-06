@@ -3,19 +3,25 @@
 #include <QBackingStore>
 #include <cstdlib>
 #include "mainwindow.h"
+#include <fstream>
 
-
-Snake::Snake(QWidget *parent, Difficulty *diff, Players *pla) : QWidget(parent)
+Snake::Snake(QWidget *parent) : QWidget(parent)
 {
     //constructer
     inGame = true;
 
+    //read config files contents
+    std::fstream file;
+    file.open("options.config", std::ios::in);
+    int diff = file.get();
+    int pla = file.get();
+
     //will be changed by the difficulty setting in main screen
-    if (*diff == SLOW)
+    if (diff == 1)
     {
         timerDelay = 70;
     }
-    else if (*diff == HARD)
+    else if (diff == 2)
     {
         timerDelay = 150;
     }
@@ -23,8 +29,6 @@ Snake::Snake(QWidget *parent, Difficulty *diff, Players *pla) : QWidget(parent)
     {
         timerDelay = 100;
     }
-
-    printf("did this work?");
 
     //set the size of the window
     setFixedSize(BOARD_W, BOARD_H);
@@ -44,8 +48,9 @@ Snake::Snake(QWidget *parent, Difficulty *diff, Players *pla) : QWidget(parent)
     //starting nicksegments
     nicksegments = 3;
 
+
     //is it twoplayer?
-    if (*pla == MULTIPLAYER)
+    if (pla == 2)
     {
         twoplayer = true;
     }
@@ -57,15 +62,16 @@ Snake::Snake(QWidget *parent, Difficulty *diff, Players *pla) : QWidget(parent)
     //starting x and y coords
     for (int n = 0; n < nicksegments; n++)
     {
-        nickx[n] = 500 - n * 10;
+        nickx[n] = 500 - n * 20;
         nicky[n] = 200;
+        std::cout << nickx[n] << " " << nicky[n] << std::endl;
     }
     if (twoplayer == true)
     {
         mattsegments = 3;
         for (int n = 0; n < mattsegments; n++)
         {
-            mattx[n] = 100 - n * 10;
+            mattx[n] = 100 - n * 20;
             matty[n] = 200;
         }
     }
@@ -119,7 +125,7 @@ void Snake::paintEvent(QPaintEvent *e)
             }
         }
     }
-    else if(!inGame)
+    else if(inGame == false)
     {
         //draw end of game stuff
         QString message = "Game over";
@@ -135,6 +141,7 @@ void Snake::paintEvent(QPaintEvent *e)
         qp.drawText(-textWidth/2, 0, message);
 
         //close
+        printf("did this work?");
         hide();
         MainWindow *win = new MainWindow;
         win->show();
@@ -284,11 +291,13 @@ void Snake::checkCollisions()
         if (((z > 4) && ((nickx[0] == nickx[z])) && (nicky[0] == nicky[z])) || ((mattx[0] == nickx[z]) && (matty[0] == nicky[z])))
         {
             inGame = false;
+            printf("nick snake hit");
         }
     }
 
     if ((nicky[0] >= BOARD_H) || (nicky[0] < 0) || (nickx[0] >= BOARD_W) || (nickx[0] < 0)) {
         inGame = false;
+        printf("nick hit wall");
     }
 
     //check matt snake dying
@@ -297,12 +306,14 @@ void Snake::checkCollisions()
         if ((z > 4) && (((mattx[0] == mattx[z]) && (matty[0] == matty[z])) || ((nickx[0] == mattx[z]) && (nicky[0] == matty[z]))))
         {
             inGame = false;
+            printf("matt hit");
         }
     }
 
     if (((matty[0] < 0) || (matty[0] >= BOARD_H)) || ((mattx[0] < 0) || (mattx[0] >= BOARD_W)))
     {
         inGame = false;
+        printf("matt hit wall");
     }
 
     if(!inGame) {

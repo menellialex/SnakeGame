@@ -1,10 +1,6 @@
 #include "mainwindow.h"
 #include "optionswindow.h"
-#include "snake.h"
 #include "ui_mainwindow.h"
-
-Difficulty *difficultyLocation;
-Players *playersLocation;
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -27,24 +23,10 @@ void MainWindow::on_startButton_clicked()
 }
 
 
-void MainWindow::on_settingsButton_clicked()
-{
-
-}
 
 void MainWindow::on_exitButton_clicked()
 {
     this->close();
 }
 
-void MainWindow::on_pushButton_4_clicked()
-{
-
-}
-
-
-void MainWindow::on_optionsButton_clicked()
-{
-
-}
 

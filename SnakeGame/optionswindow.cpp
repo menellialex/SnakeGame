@@ -1,5 +1,6 @@
 #include "optionswindow.h"
 #include "ui_optionswindow.h"
+#include <fstream>
 #include "snake.h"
 
 OptionsWindow::OptionsWindow(QWidget *parent) :
@@ -17,33 +18,33 @@ OptionsWindow::~OptionsWindow()
 
 void OptionsWindow::on_playButton_clicked()
 {
-    Difficulty *diff = nullptr;
-    Players *pla = nullptr;
+    std::fstream file;
+    file.open("options.config", std::ios::out);
     if(ui->radioButtonSlug->isChecked())
     {
-        *diff = SLOW;
+        file << 1;
     }
     else if (ui->radioButtonPython->isChecked())
     {
-        *diff = HARD;
+        file << 2;
     }
     else
     {
-        *diff = MEDIUM;
+        file << 3;
     }
 
     if (ui->radioButtonMulti->isChecked())
     {
-        *pla = MULTIPLAYER;
+        file << 2;
     }
     else
     {
-        *pla = SINGLEPLAYER;
+        file << 1;
     }
 
-    delete ui;
-    hide();
-    Snake *window = new Snake(this, diff, pla);
+    file.close();
+    Snake *window = new Snake;
+    window->activateWindow();
     window->setWindowTitle("Shlippery Shlithering Shneaky Shnake");
     window->show();
 }

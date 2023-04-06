@@ -29,7 +29,6 @@ public:
     QFrame *frame;
     QPushButton *startButton;
     QLabel *label;
-    QPushButton *optionsButton;
     QPushButton *exitButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -76,16 +75,11 @@ public:
         label->setStyleSheet(QString::fromUtf8("color: rgb(0, 255, 0);"));
         label->setFrameShape(QFrame::NoFrame);
         label->setAlignment(Qt::AlignCenter);
-        optionsButton = new QPushButton(centralwidget);
-        optionsButton->setObjectName("optionsButton");
-        optionsButton->setGeometry(QRect(200, 320, 93, 32));
-        QFont font3;
-        font3.setFamilies({QString::fromUtf8("Titillium Web")});
-        optionsButton->setFont(font3);
-        optionsButton->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName("exitButton");
         exitButton->setGeometry(QRect(200, 400, 93, 32));
+        QFont font3;
+        font3.setFamilies({QString::fromUtf8("Titillium Web")});
         exitButton->setFont(font3);
         exitButton->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
         MainWindow->setCentralWidget(centralwidget);
@@ -107,7 +101,6 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Main Menu", nullptr));
         startButton->setText(QCoreApplication::translate("MainWindow", "Start Game", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Snake Game", nullptr));
-        optionsButton->setText(QCoreApplication::translate("MainWindow", "Options", nullptr));
         exitButton->setText(QCoreApplication::translate("MainWindow", "Exit", nullptr));
     } // retranslateUi
 
