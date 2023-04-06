@@ -12,7 +12,6 @@ SOURCES += \
     gamewindow.cpp \
     main.cpp \
     mainwindow.cpp \
-
     optionswindow.cpp \
     snake.cpp
 

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "optionswindow.h"
-#include "gamewindow.h"
 #include "snake.h"
 #include "ui_mainwindow.h"
 
@@ -20,13 +19,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_startButton_clicked()
 {
-    //(new GameWindow(this))->show();
-    Snake window;
-    window.setWindowTitle("Shlippery Shlithering Shneaky Shnake");
-    window.show();
+   hide();
+   OptionsWindow *ow = new OptionsWindow();
+   ow->show();
 }
 
 
@@ -48,6 +45,6 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_optionsButton_clicked()
 {
-    (new OptionsWindow(this, difficultyLocation, playersLocation))->show();
+
 }
 

@@ -6,13 +6,14 @@
 #include <QPainter>
 #include <QTimer>
 #include <QTime>
+#include "snakeEnums.h"
 
 class Snake : public QWidget
 {
     Q_OBJECT
 
 public:
-    Snake(QWidget *parent = nullptr);
+    explicit Snake(QWidget *parent = nullptr, Difficulty *diff = nullptr, Players *pla = nullptr);
     ~Snake();
     bool twoplayer;
 

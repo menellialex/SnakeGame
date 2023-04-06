@@ -4,13 +4,27 @@
 #include <cstdlib>
 #include "mainwindow.h"
 
-Snake::Snake(QWidget *parent) : QWidget(parent)
+
+Snake::Snake(QWidget *parent, Difficulty *diff, Players *pla) : QWidget(parent)
 {
     //constructer
     inGame = true;
 
     //will be changed by the difficulty setting in main screen
-    timerDelay = 100;
+    if (*diff == SLOW)
+    {
+        timerDelay = 70;
+    }
+    else if (*diff == HARD)
+    {
+        timerDelay = 150;
+    }
+    else
+    {
+        timerDelay = 100;
+    }
+
+    printf("did this work?");
 
     //set the size of the window
     setFixedSize(BOARD_W, BOARD_H);
@@ -31,7 +45,14 @@ Snake::Snake(QWidget *parent) : QWidget(parent)
     nicksegments = 3;
 
     //is it twoplayer?
-    twoplayer = true;
+    if (*pla == MULTIPLAYER)
+    {
+        twoplayer = true;
+    }
+    else
+    {
+        twoplayer = false;
+    }
 
     //starting x and y coords
     for (int n = 0; n < nicksegments; n++)

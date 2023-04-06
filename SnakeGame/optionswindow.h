@@ -1,7 +1,6 @@
 #ifndef OPTIONSWINDOW_H
 #define OPTIONSWINDOW_H
 
-#include "snakeEnums.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -13,16 +12,14 @@ class OptionsWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit OptionsWindow(QWidget *parent = nullptr, Difficulty *diff = nullptr, Players *pla = nullptr);
+    explicit OptionsWindow(QWidget *parent = nullptr);
     ~OptionsWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_playButton_clicked();
 
 private:
     Ui::OptionsWindow *ui;
-    Difficulty *diff;
-    Players *pla;
 };
 
 #endif // OPTIONSWINDOW_H
